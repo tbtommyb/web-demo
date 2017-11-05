@@ -4,4 +4,4 @@ EXPOSE 8888
 
 ADD . ./
 
-CMD node app.js
+CMD ["/usr/local/bin/node", "app.js"]
