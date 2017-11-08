@@ -1,5 +1,9 @@
 FROM node:9
 
-ADD . ./
+ADD . /tcp-server
 
-CMD ["/usr/local/bin/node", "app.js"]
+WORKDIR /tcp-server
+
+RUN npm install -g nodemon
+
+CMD ["nodemon", "app.js"]

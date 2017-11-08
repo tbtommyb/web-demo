@@ -4,6 +4,8 @@ services:
     build: ./tcp-server
     ports:
     - "8888:8888"
+    volumes:
+    - ./tcp-server:/tcp-server
     depends_on:
     - http
   http:
