@@ -1,10 +1,12 @@
-TCP Server
-==========
+Connect your web app to the internet
+====================================
 
-This repo demos how to build a TCP server in Node. Think of it being a very small, very basic reverse proxy in the mould of nginx.
+You've created an amazing web app running on port 9000. You can get to it locally at `localhost:9000`. But how anyone on the internet see your website? HTTP requests to your server will come through to port 80 (or 443 for HTTPS). How can you get the requests to your web app and back?
 
-The TCP server in `/tcp-server` receives connections and handles them according to the application protocol. If the request is an HTTP request it proxies the request to the HTTP server in `/http-server`, running on port 9000. Otherwise it echoes back the request, capitalised.
+This repo is intended to demonstrate in a very simple way how a web server like nginx handles requests and proxies them to web apps running on the same machine. It also demonstrates how to connect to a TCP socket in node.js.
 
-The TCP server represents something like nginx, which listens to requests on port 80, checks the hostname in the request and forwards it to the corresponding web app. It's running on port 8888 for demo purposes - in production it would be on port 80.
+The repo is made up of two parts. `web-app` is (obviously) our web app. In this case it's just a basic node app serving a single `index.html`, but it could be any kind of complexity. The other part is `server`, which is our internet-facing server. It connects to TCP port 80 (meaning it must be run with `sudo`) and forwards any HTTP requests to the web app by opening a local connection to the web app's port. If it receives any non-HTTP requests it just echoes them back, capitalised.
 
-The HTTP server could be something like an Express app running on port 9000. As HTTP requests go to port 80, not 9000, we need something to hook it up to the internet.
+The code also demonstrates two common features of node.js applications - registering event handlers (e.g. `tcpClient.on("data", data => { ... })`) and piping streams of data.
+
+A 'real' web sever like nginx would be much more efficient by keeping a pool of active connections to the web apps it's serving. It would also handle things like verifying HTTPS connections, caching and serving static assets like HTML and CSS. This means that your web app doesn't need to spend its time serving static files and can focus on generating dynamic content, interacting with a database and so on.
