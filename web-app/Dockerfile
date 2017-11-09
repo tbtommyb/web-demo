@@ -4,4 +4,4 @@ ADD . ./
 
 RUN npm install connect serve-static
 
-CMD ["/usr/local/bin/node", "server.js"]
+CMD ["/usr/local/bin/node", "app.js"]

@@ -1,14 +1,14 @@
 version: "3"
 services:
-  tcp:
-    build: ./tcp-server
+  server:
+    build: ./server
     ports:
-    - "8888:8888"
+    - "80:80"
     volumes:
-    - ./tcp-server:/tcp-server
+    - ./server:/server
     depends_on:
-    - http
-  http:
-    build: ./http-server
+    - web-app
+  web-app:
+    build: ./web-app
     ports:
     - "9000:9000"
