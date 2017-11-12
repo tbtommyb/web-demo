@@ -10,3 +10,5 @@ The repo is made up of two parts. `web-app` is (obviously) our web app. In this 
 The code also demonstrates two common features of node.js applications - registering event handlers (e.g. `tcpClient.on("data", data => { ... })`) and piping streams of data.
 
 A 'real' web sever like nginx would be much more efficient by keeping a pool of active connections to the web apps it's serving. It would also handle things like verifying HTTPS connections, caching and serving static assets like HTML and CSS. This means that your web app doesn't need to spend its time serving static files and can focus on generating dynamic content, interacting with a database and so on.
+
+To run the demo, install Docker and then run `docker-compose up` in the project root.
