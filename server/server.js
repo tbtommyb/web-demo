@@ -27,24 +27,24 @@ server.on("connection", tcpClient => {
 
     // Send internet client request to web app and web app response back to client
     // tcpClient.pipe(webApp).pipe(tcpClient)
-  })
 
-  // The piping above can be implemented using event handlers as below
-  // allowing us to inspect the data and route accordingly
-  tcpClient.on("data", data => {
-    if (data.includes("HTTP/1.1")) {
-      // We've got an HTTP request, so pass on to the web app
-      // If we had multiple web apps we could check the Host header in the request
-      // and route the request to port of the correct web app
-      webApp.write(data)
-    } else {
-      // If it's not an HTTP request just echo back
-      tcpClient.write(data.toString().toUpperCase())
-    }
-  })
+    // The piping above can be implemented using event handlers as below
+    // allowing us to inspect the data and route accordingly
+    tcpClient.on("data", data => {
+      if (data.includes("HTTP/1.1")) {
+        // We've got an HTTP request, so pass on to the web app
+        // If we had multiple web apps we could check the Host header in the request
+        // and route the request to port of the correct web app
+        webApp.write(data)
+      } else {
+        // If it's not an HTTP request just echo back
+        tcpClient.write(data.toString().toUpperCase())
+      }
+    })
 
-  // When the web app responds, forward it back to client on the internet
-  webApp.on("data", data => {
-    tcpClient.end(data)
+    // When the web app responds, forward it back to client on the internet
+    webApp.on("data", data => {
+      tcpClient.end(data)
+    })
   })
 })
